@@ -1,0 +1,63 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #c6f1b5;
+  background-image: url();
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background-image: url(https://d3hnfqimznafg0.cloudfront.net/images/Article_Images/ImageForArticle_898_44924040741493052171.jpg);
+  color: #6cdd6e;
+  margin-top: -20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 100px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #1087c2;
+  color: #000000;
+  border: none;
+  border-radius: 3px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #000000;
+  padding: 8px;
+  text-align: left;
+}
+
+p {
+  font-weight: bold;
+}
+
+select {
+  padding: 8px;
+}
+.a{
+  color: #6cdd6e;
+  
+}

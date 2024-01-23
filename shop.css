@@ -1,0 +1,43 @@
+  
+  a:link{
+    text-decoration: none;
+  }
+
+  .a{
+   
+  margin-left: 30px;
+   text-align: center;
+  padding: 20px 40px;
+
+  }
+  .b{
+   margin-left: 10px;
+   
+  }
+  .vino{
+
+  display:grid;
+   
+
+  
+
+  }.con{
+    display: flex;
+    padding-left: 50px;
+    justify-content: space-around;
+    margin-top: 40px;
+   
+    
+  }.con1{
+    display: flex;
+    padding-left: 50px;
+    justify-content: space-around;
+    margin-top: 40px;
+  }.v1{
+    display: flex;
+    
+    justify-content:center;
+   
+    
+  }
+

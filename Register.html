@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.css">
+    <title>Climate Action Tracker</title>
+</head>
+<body>
+ 
+    <header>
+        <h1>Climate Action Tracker</h1>
+    </header>
+
+
+    
+    <div class="container">
+        
+        <!-- Observation Form -->
+        <form id="observationForm">
+            <label for="temperature">Temperature (°C):</label>
+            <input type="number" id="temperature" required>
+            <label for="weatherCondition">Weather Condition:</label>
+            <input type="text" id="weatherCondition" required><br>
+            <label for="observationTime">Observation Time:</label>
+            <input type="time" id="observationTime" required>
+            <button type="button" onclick="recordObservation()">submit Observation</button>
+        </form>
+
+        <!-- Temperature Filter -->
+        <label for="filterTemperature">Filter by Temperature:</label>
+        <select id="filterTemperature" onchange="filterObservations()">
+            <option value="">All Temperatures</option>
+        </select>
+
+        <!-- Observation Table -->
+        <table id="observationTable">
+            <tr>
+                <th>Temperature (°C)</th>
+                <th>Weather Condition</th>
+                <th>Observation Time</th>
+                <th>Date Recorded</th>
+            </tr>
+        </table>
+
+        <!-- Total Observations -->
+        <p>Total Observations: <span id="totalObservations">0</span></p>
+    </div>
+       
+   
+ <!-- JavaScript -->
+ <script>
+    // Climate Action Tracker Class
+    class ClimateActionTracker {
+        constructor() {
+            this.observations = [];
+        }
+
+        recordObservation(temperature, weatherCondition, observationTime) {
+            const dateRecorded = new Date().toLocaleDateString();
+            this.observations.push({ temperature, weatherCondition, observationTime, dateRecorded });
+            updateTable();
+            updateTotalObservations();
+            updateTemperatureFilter();
+            resetForm();
+        }
+
+        getUniqueTemperatures() {
+            const temperatureSet = new Set();
+            this.observations.forEach(observation => temperatureSet.add(observation.temperature));
+            return Array.from(temperatureSet);
+        }
+    }
+
+    // Instance of Climate Action Tracker
+    const climateTracker = new ClimateActionTracker();
+
+    // Record Observation Function
+    function recordObservation() {
+        const temperature = document.getElementById('temperature').value;
+        const weatherCondition = document.getElementById('weatherCondition').value;
+        const observationTime = document.getElementById('observationTime').value;
+
+        if (temperature.trim() !== '' && weatherCondition.trim() !== '' && observationTime.trim() !== '') {
+            climateTracker.recordObservation(temperature, weatherCondition, observationTime);
+        } else {
+            alert("Please enter valid values for temperature, weather condition, and observation time.");
+        }
+    }
+
+    // Update Table Function
+    function updateTable() {
+        const observationTable = document.getElementById('observationTable');
+        // Clear existing rows
+        while (observationTable.rows.length > 1) {
+            observationTable.deleteRow(1);
+        }
+        // Populate table with observation data
+        for (const observationData of climateTracker.observations) {
+            const row = observationTable.insertRow(-1);
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            const cell4 = row.insertCell(3);
+            cell1.textContent = observationData.temperature;
+            cell2.textContent = observationData.weatherCondition;
+            cell3.textContent = observationData.observationTime;
+            cell4.textContent = observationData.dateRecorded;
+        }
+    }
+
+    // Update Total Observations Function
+    function updateTotalObservations() {
+        const totalObservationsSpan = document.getElementById('totalObservations');
+        totalObservationsSpan.textContent = climateTracker.observations.length;
+    }
+
+    // Update Temperature Filter Function
+    function updateTemperatureFilter() {
+        const filterTemperatureSelect = document.getElementById('filterTemperature');
+        filterTemperatureSelect.innerHTML = '<option value="">All Temperatures</option>';
+        const uniqueTemperatures = climateTracker.getUniqueTemperatures();
+        for (const temperature of uniqueTemperatures) {
+            const option = document.createElement('option');
+            option.value = temperature;
+            option.textContent = temperature;
+            filterTemperatureSelect.appendChild(option);
+        }
+    }
+
+    // Filter Observations Function
+    function filterObservations() {
+        const filterTemperature = document.getElementById('filterTemperature').value;
+        const filteredObservations = filterTemperature
+            ? climateTracker.observations.filter(observation => observation.temperature == filterTemperature)
+            : climateTracker.observations;
+        updateFilteredTable(filteredObservations);
+    }
+
+    // Update Filtered Table Function
+    function updateFilteredTable(filteredObservations) {
+        const observationTable = document.getElementById('observationTable');
+        // Clear existing rows
+        while (observationTable.rows.length > 1) {
+            observationTable.deleteRow(1);
+        }
+        // Populate table with filtered observation data
+        for (const observationData of filteredObservations) {
+            const row = observationTable.insertRow(-1);
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            const cell4 = row.insertCell(3);
+            cell1.textContent = observationData.temperature;
+            cell2.textContent = observationData.weatherCondition;
+            cell3.textContent = observationData.observationTime;
+            cell4.textContent = observationData.dateRecorded;
+        }
+    }
+
+    // Reset Form Function
+    function resetForm() {
+        document.getElementById('temperature').value = '';
+        document.getElementById('weatherCondition').value = '';
+        document.getElementById('observationTime').value = '';
+    }
+</script>
+</body>
+</html>
